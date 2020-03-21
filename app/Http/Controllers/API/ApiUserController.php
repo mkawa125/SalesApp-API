@@ -62,12 +62,20 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        return response()->json([
-            'userMessage' => 'Success',
-            'developerMessage' => 'User found to database',
-            'data' => UserResource::collection($user),
-        ], 200);
+        try {
+            $user = User::find($id);
+            return response()->json([
+                'userMessage' => 'Success',
+                'developerMessage' => 'User found to database',
+                'data' => new UserResource($user),
+            ], 200);                                                                
+        } catch (\Throwable $e) {
+            return response()->json([
+                'userMessage' => 'Sorry error occured',
+                'developerMessage' => 'User Not Found',
+            ], 404);
+        }
+        
     }
 
     /**
