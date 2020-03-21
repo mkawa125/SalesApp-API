@@ -86,7 +86,19 @@ class ApiUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $user = User::find($id);
+            return response()->json([
+                'userMessage' => 'Success',
+                'developerMessage' => 'User found to database',
+                'data' => new UserResource($user),
+            ], 200);                                                                
+        } catch (\Throwable $e) {
+            return response()->json([
+                'userMessage' => 'Sorry error occured',
+                'developerMessage' => 'User Not Found',
+            ], 404);
+        }
     }
 
     /**
@@ -109,6 +121,10 @@ class ApiUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("users")->where('id',$id)->delete();
+        return response()->json([
+            'userMessage' => 'Success',
+            'developerMessage' => 'User deleted successfully',
+        ], 200);
     }
 }
