@@ -25,7 +25,10 @@ Route::namespace('API')->prefix('v1')->group(function () {
     Route::post('register', 'ApiRegisterController@register');
 
     Route::middleware(['cors', 'jwt.auth'])->group(function (){
-        Route::post('contacts', 'Users\messageController@contactMessage')->name('contact-us');
+        Route::get('/' , 'HomeController@index');
+        Route::resource('roles','ApiRoleController');
+        Route::resource('users','ApiUserController');
+        Route::resource('products','ApiProductController');
 
     });
 });

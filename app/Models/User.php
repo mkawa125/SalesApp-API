@@ -6,12 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Emadadly\LaravelUuid\Uuids;
+use Spatie\Permission\Traits\HasRoles;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, Uuids;
+    use Notifiable, Uuids, HasRoles;
 
     /**
      * The attributes that are mass assignable.
