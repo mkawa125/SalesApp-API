@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    INVENTORY MANAGEMENT SYSTEM API
                 </div>
 
                 <div class="links">
