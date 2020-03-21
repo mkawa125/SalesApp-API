@@ -26,9 +26,12 @@ class ApiRoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $roles = Role::all();
+        return response()->json([
+                'userMessage' => 'Success',
+                'developerMessage' => 'Roles retrieved successfully',
+                'data' => $roles,
+            ], 200);
     }
 
 
