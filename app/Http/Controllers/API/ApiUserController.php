@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ApiUserController extends Controller
 {
@@ -40,7 +42,12 @@ class ApiUserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::pluck('name','id')->all();
+        return response()->json([
+            'userMessage' => 'Success',
+            'developerMessage' => 'Roles successfully retrieved',
+            'data' => $roles,
+        ]);
     }
 
     /**
@@ -51,7 +58,26 @@ class ApiUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255|unique:users',
+            'first_name' => 'required',
+            'phone_number' => 'required|min:9|unique:users',
+            'surname' => 'required|string',
+            'password' => 'min:6|same:confirm-password',
+            'roles' => 'required'
+        ]);
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+
+        return response()->json([
+            'userMessage' => 'Success',
+            'developerMessage' => 'User successfully created',
+            'data' => new UserResource($user),
+        ]);
     }
 
     /**
@@ -88,10 +114,14 @@ class ApiUserController extends Controller
     {
         try {
             $user = User::find($id);
+            $roles = Role::pluck('name','name')->all();
+            $userRole = $user->roles->pluck('name','name')->all();
             return response()->json([
                 'userMessage' => 'Success',
                 'developerMessage' => 'User found to database',
                 'data' => new UserResource($user),
+                'roles' => $role,
+                'userRole' => $userRole,
             ], 200);                                                                
         } catch (\Throwable $e) {
             return response()->json([
@@ -110,7 +140,36 @@ class ApiUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request()->all(), [
+            'email' => 'required|string|email|max:255|unique:users',
+            'first_name' => 'required',
+            'surname' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'same:confirm-password',
+            'roles' => 'required'
+        ]);
+
+        /** get all request data */
+        $input = $request->all();
+
+        /** check if request has password */
+        if (!empty($input['password'])) {
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = array_except($input , array('password'));
+        }
+
+        $user = User::find($id);
+        $user->update($input);
+
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->input('roles'));
+
+        return response()->json([
+            'userMessage' => 'Success',
+            'developerMessage' => 'User successfully updated',
+            'data' => new UserResource($user),
+        ]);
     }
 
     /**
@@ -121,7 +180,7 @@ class ApiUserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("users")->where('id',$id)->delete();
+        User::find($id)->delete();
         return response()->json([
             'userMessage' => 'Success',
             'developerMessage' => 'User deleted successfully',
