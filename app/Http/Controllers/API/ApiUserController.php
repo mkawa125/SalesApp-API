@@ -4,9 +4,20 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use App\Http\Resources\UserResource;
 
 class ApiUserController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,12 @@ class ApiUserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::orderBy('created_at', 'asc')->paginate(20);
+        return response()->json([
+            'userMessage' => 'success',
+            'developerMessage' => 'Users retrieved successfully',
+            'data' => UserResource::collection($users),
+        ]);
     }
 
     /**

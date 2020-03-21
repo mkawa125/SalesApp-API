@@ -103,8 +103,8 @@ class ApiRoleController extends Controller
             'userMessage' => 'Success',
             'developerMessage' => 'Role created successfully',
             'role' => $role,
-            'permissions' =>$permissions,
-        ], 201);
+            'permissions' =>$rolePermissions,
+        ], 200);
     }
 
 
