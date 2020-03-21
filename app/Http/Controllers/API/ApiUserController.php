@@ -30,7 +30,7 @@ class ApiUserController extends Controller
             'userMessage' => 'success',
             'developerMessage' => 'Users retrieved successfully',
             'data' => UserResource::collection($users),
-        ]);
+        ], 200);
     }
 
     /**
@@ -62,7 +62,12 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return response()->json([
+            'userMessage' => 'Success',
+            'developerMessage' => 'User found to database',
+            'data' => UserResource::collection($user),
+        ], 200);
     }
 
     /**
