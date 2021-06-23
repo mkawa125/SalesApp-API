@@ -16,7 +16,7 @@
         "laravel/socialite": "^3.2.0",
         "laravel/tinker": "^1.0",
         "spatie/laravel-permission": "^3.11",
-        "tymon/jwt-auth": "dev-develop"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
