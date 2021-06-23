@@ -32,7 +32,7 @@ class ApiRegisterController extends Controller
 
         return Response::json([
             'error' => false,
-            'message' => 'user created',
+            'message' => 'User created',
             'user' => $user,
             'access_token' => $token,
         ], 201);
