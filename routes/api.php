@@ -20,6 +20,7 @@ Route::middleware('auth:api', 'jwt.auth')->get('/user', function (Request $reque
 
 Route::namespace('API')->prefix('v1')->group(function () {
     Route::post('login', 'ApiLoginController@login');
+    Route::post('logout', 'ApiLoginController@logout');
     Route::get('login/{provider}', 'ApiLoginController@redirect');
     Route::get('login/callback/{provider}', 'ApiLoginController@handleCallback');
     Route::post('register', 'ApiRegisterController@register');
