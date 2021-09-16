@@ -30,6 +30,7 @@ Route::namespace('API')->prefix('v1')->group(function () {
         Route::resource('roles','ApiRoleController');
         Route::resource('users','ApiUserController');
         Route::resource('products','ApiProductController');
+        Route::post('register-customer' , 'ApiCustomersController@registerCustomer');
 
     });
 });

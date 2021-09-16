@@ -466,6 +466,7 @@ class ComposerStaticInitfd8046dc981fe4b05ba460e3fedfcdf0
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\API\\ApiCustomersController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApiCustomersController.php',
         'App\\Http\\Controllers\\API\\ApiLoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApiLoginController.php',
         'App\\Http\\Controllers\\API\\ApiRegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApiRegisterController.php',
         'App\\Http\\Controllers\\API\\ApiRoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ApiRoleController.php',
@@ -485,6 +486,7 @@ class ComposerStaticInitfd8046dc981fe4b05ba460e3fedfcdf0
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserResource.php',
+        'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
