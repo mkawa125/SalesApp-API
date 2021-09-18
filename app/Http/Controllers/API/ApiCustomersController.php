@@ -22,7 +22,8 @@ class ApiCustomersController extends Controller
             'password'=> 'required',
             'identification_number' => 'required',
             'gender' => 'required',
-        ]);
+        ]); 
+        
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
