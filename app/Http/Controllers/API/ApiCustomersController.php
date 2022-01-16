@@ -19,8 +19,8 @@ class ApiCustomersController extends Controller
             'email' => 'required|string|email|max:255|unique:customers',
             'first_name' => 'required',
             'surname' => 'required',
-            'password'=> 'required',
-            'identification_number' => 'required',
+            // 'password'=> 'required',
+            'identification_number' => 'required|unique:customers',
             'gender' => 'required',
         ]); 
         
